@@ -1,8 +1,14 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('path')
 
-function createWindow () {
+
+ipcMain.handle("dialog_showOpenDialog", async (event, options) => {
+  return await dialog.showOpenDialog(BrowserWindow.getFocusedWindow(), options);
+});
+
+
+function createWindow() {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 800,
